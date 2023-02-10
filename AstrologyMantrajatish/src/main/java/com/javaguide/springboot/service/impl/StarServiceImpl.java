@@ -54,12 +54,15 @@ public class StarServiceImpl implements StarService {
 	}
 
 	@Override
-	public String getTips(String star_id) {
+	public String getTips(String star_id,String lang) {
 		
 		Optional<com.javaguide.springboot.model.Star> star = starRepository.findById(Long.valueOf(star_id));
 		
 		if(star.isPresent()) {
-			return star.get().getProcess().getTips();
+			if(lang.equalsIgnoreCase("bn"))
+				return star.get().getProcess().getTips_bang();
+			else
+				return star.get().getProcess().getTips();
 		}
 		else
 		{
@@ -68,12 +71,16 @@ public class StarServiceImpl implements StarService {
 	}
 
 	@Override
-	public String getPuja(String star_id) {
+	public String getPuja(String star_id,String lang) {
 		// TODO Auto-generated method stub
 		Optional<com.javaguide.springboot.model.Star> star = starRepository.findById(Long.valueOf(star_id));
 		
 		if(star.isPresent()) {
-			return star.get().getProcess().getPuja();
+			
+			if(lang.equalsIgnoreCase("bn"))
+				return star.get().getProcess().getPuja_bang();
+			else
+				return star.get().getProcess().getPuja();
 		}
 		else
 		{

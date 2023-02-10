@@ -52,9 +52,9 @@ public class StarController {
 	}
 
 	@GetMapping("/get-tips")
-	public ReturnModel getTips(@RequestParam String starid){
+	public ReturnModel getTips(@RequestParam String starid,@RequestParam String lang){
 		try {
-			String mantram = starService.getTips(starid);
+			String mantram = starService.getTips(starid,lang);
 			return new ReturnModel("200","ok",mantram);
 		}
 		catch(Exception e){
@@ -66,9 +66,9 @@ public class StarController {
 	}
 	
 	@GetMapping("/get-puja")
-	public ReturnModel getPuja(@RequestParam String starid){
+	public ReturnModel getPuja(@RequestParam String starid,@RequestParam String lang){
 		try {
-			String mantram = starService.getPuja(starid);
+			String mantram = starService.getPuja(starid,lang);
 			return new ReturnModel("200","ok",mantram);
 		}
 		catch(Exception e){

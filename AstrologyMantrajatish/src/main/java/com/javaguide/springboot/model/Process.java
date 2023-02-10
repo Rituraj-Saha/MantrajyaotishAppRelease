@@ -29,6 +29,12 @@ public class Process {
 	@Column(name = "puja", nullable=false)
 	private String puja;
 	
+	@Column(name = "tips_bang", nullable=false)
+	private String tips_bang;
+	
+	@Column(name = "puja_bang", nullable=false)
+	private String puja_bang;
+	
 	 @OneToOne(mappedBy = "process")
 	    private Star star;
 }
