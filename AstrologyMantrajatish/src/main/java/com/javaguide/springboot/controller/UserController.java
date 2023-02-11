@@ -1,8 +1,11 @@
 package com.javaguide.springboot.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,9 +49,30 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/admin/create-user", method = RequestMethod.POST)
-	ResponseEntity<?> createUser(@RequestBody User user) throws Exception{
+	ReturnModel createUser(@RequestBody User user) throws Exception{
+		try {
 		User nUser = userService.saveUser(user);
-		return ResponseEntity.ok(nUser);
+		return new ReturnModel("200", "ok", new UserResponse(nUser));
+		}
+		catch(Exception e)
+		{
+			return new ReturnModel("502","user not created",e.getMessage());
+		}
+	}
+	
+	@GetMapping("/get-pageable-user")
+	public ReturnModel getPageableUser(@RequestParam String pageNo,@RequestParam String noOfitemPerPage){
+		try {
+			Pageable firstPageWithTwoElements = PageRequest.of(Integer.valueOf(pageNo), Integer.valueOf(noOfitemPerPage));
+			List<UserResponse> userList = userService.getAllUser(firstPageWithTwoElements);
+			return new ReturnModel("200","ok",userList);
+		}
+		catch(Exception e){
+			return new ReturnModel("502","user not found",e.getMessage());
+		}
+		
+//		 return new ResponseEntity<>(userService.getUserByPhone(phone), HttpStatus.OK);
+	        
 	}
 	
 }
