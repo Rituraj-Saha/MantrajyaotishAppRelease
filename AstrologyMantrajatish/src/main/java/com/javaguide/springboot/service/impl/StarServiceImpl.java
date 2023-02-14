@@ -1,11 +1,17 @@
 package com.javaguide.springboot.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.javaguide.springboot.exception.ResourceNotFoundException;
+import com.javaguide.springboot.model.Star;
+import com.javaguide.springboot.model.StarModelForGetAll;
+import com.javaguide.springboot.model.StarResponse;
 import com.javaguide.springboot.model.User;
+import com.javaguide.springboot.model.UserResponse;
 import com.javaguide.springboot.repository.ProcessRepository;
 import com.javaguide.springboot.repository.StarRepository;
 import com.javaguide.springboot.repository.UserRepository;
@@ -98,6 +104,33 @@ public class StarServiceImpl implements StarService {
 		else
 		{
 			throw new ResourceNotFoundException("star","name",star_id);
+		}
+		
+	}
+
+	@Override
+	public List<StarResponse> getAllStars() {
+		
+		List<Star> stars = starRepository.findAll();
+		
+		List<StarResponse> mResponse = new ArrayList<StarResponse>();
+		
+		List<StarModelForGetAll> mModels = new ArrayList<StarModelForGetAll>();
+		
+		if(stars.size()>0) {
+			
+			for(Star s:stars) {
+				mModels.add(new StarModelForGetAll(s.getId(),s.getStar_name()));
+			}
+			for(StarModelForGetAll m:mModels) {
+				mResponse.add(new StarResponse(m));
+			}
+			
+			return mResponse;
+		}
+		else
+		{
+			throw new ResourceNotFoundException("star","name","stars length 0");
 		}
 		
 	}
