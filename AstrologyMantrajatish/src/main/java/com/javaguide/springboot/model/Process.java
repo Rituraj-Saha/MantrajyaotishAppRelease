@@ -35,6 +35,26 @@ public class Process {
 	@Column(name = "puja_bang", nullable=false)
 	private String puja_bang;
 	
+	@Column(name = "gen_info", nullable=false)
+	private String gen_info;
+	
+	@Column(name = "gen_info_bang", nullable=false)
+	private String gen_info_bang;
+	
+	@Column(name = "jantram_info", nullable=false)
+	private String jantram_info;
+	
+	@Column(name = "jantram_info_bang", nullable=false)
+	private String jantram_info_bang;
+	
+	@Column(name = "mantram_info", nullable=false)
+	private String mantram_info;
+	
+	@Column(name = "mantram_info_bang", nullable=false)
+	private String mantram_info_bang;
+	
+	
+	
 	 @OneToOne(mappedBy = "process")
 	    private Star star;
 }

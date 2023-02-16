@@ -10,5 +10,10 @@ public interface StarService {
 	String getTips(String star_id,String lang);
 	String getPuja(String star_id,String lang);
 	String getStarName(String star_id);
+	
+	String getGenInfo(String star_id,String lang);
+	String getJantramInfo(String star_id,String lang);
+	String getMantraInfo(String star_id,String lang);
+	
 	List<StarResponse> getAllStars();
 }

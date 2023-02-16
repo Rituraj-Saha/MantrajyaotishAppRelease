@@ -78,9 +78,41 @@ public class StarController {
 			return new ReturnModel("502","user not found",e.getMessage());
 		}
 		
-//		 return new ResponseEntity<>(userService.getUserByPhone(phone), HttpStatus.OK);
-	        
 	}
+		@GetMapping("/get-gen-info")
+		public ReturnModel getGenInfo(@RequestParam String starid,@RequestParam String lang){
+			try {
+				String mantram = starService.getGenInfo(starid,lang);
+				return new ReturnModel("200","ok",mantram);
+			}
+			catch(Exception e){
+				return new ReturnModel("502","user not found",e.getMessage());
+			}
+		}
+		
+		@GetMapping("/get-jantram-info")
+		public ReturnModel getJantramInfo(@RequestParam String starid,@RequestParam String lang){
+			try {
+				String mantram = starService.getJantramInfo(starid,lang);
+				return new ReturnModel("200","ok",mantram);
+			}
+			catch(Exception e){
+				return new ReturnModel("502","user not found",e.getMessage());
+			}
+		}
+		@GetMapping("/get-mantram-info")
+		public ReturnModel getMantraInfo(@RequestParam String starid,@RequestParam String lang){
+			try {
+				String mantram = starService.getMantraInfo(starid,lang);
+				return new ReturnModel("200","ok",mantram);
+			}
+			catch(Exception e){
+				return new ReturnModel("502","user not found",e.getMessage());
+			}
+		}
+//		 return new ResponseEntity<>(userService.getUserByPhone(phone), HttpStatus.OK);
+		
+	
 	@GetMapping("/admin/get-all-stars")
 	public ReturnModel getStarts(){
 		try {
