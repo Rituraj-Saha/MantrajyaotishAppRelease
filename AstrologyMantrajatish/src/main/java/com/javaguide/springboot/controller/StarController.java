@@ -79,6 +79,7 @@ public class StarController {
 		}
 		
 	}
+	//newly added
 		@GetMapping("/get-gen-info")
 		public ReturnModel getGenInfo(@RequestParam String starid,@RequestParam String lang){
 			try {
