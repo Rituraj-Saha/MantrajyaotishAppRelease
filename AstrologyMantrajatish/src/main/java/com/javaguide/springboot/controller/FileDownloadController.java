@@ -18,9 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/download")
 public class FileDownloadController {
-//	private static final String EXTERNAL_FILE_PATH = "D:/others/MantrajyaotishApp/resoursce/sample/";
+	private static final String EXTERNAL_FILE_PATH = "D:/others/MantrajyaotishApp/resoursce/sample/";
 	
-	private static final String EXTERNAL_FILE_PATH = "E:/boni dev/resoursce/";
+//	private static final String EXTERNAL_FILE_PATH = "E:/boni dev/resoursce/";
 	
 	@RequestMapping("/file/{fileName:.+}")
 	public void downloadPDFResource(HttpServletRequest request, HttpServletResponse response,
