@@ -55,7 +55,7 @@ public class StarController {
 	}
 
 	@GetMapping("/get-tips")
-	public ReturnModel getTips(@RequestParam String starid,@RequestParam String lang){
+	public ReturnModel getTips(@RequestParam String starid,@RequestParam(name = "lang",required = false) String lang){
 		try {
 			String mantram = starService.getTips(starid,lang);
 			return new ReturnModel("200","ok",mantram);

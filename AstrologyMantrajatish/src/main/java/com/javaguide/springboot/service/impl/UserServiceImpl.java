@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.javaguide.springboot.exception.ResourceNotFoundException;
 import com.javaguide.springboot.model.User;
 import com.javaguide.springboot.model.UserResponse;
+import com.javaguide.springboot.model.UserUpdate;
 import com.javaguide.springboot.repository.UserRepoPagination;
 import com.javaguide.springboot.repository.UserRepository;
 import com.javaguide.springboot.service.UserService;
@@ -30,13 +31,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User saveUser(User u) {
-		// TODO Auto-generated method stub
+		
 		return userRepository.save(u);
 	}
 
 	@Override
 	public User getUserByPhone(String phone) {
-		// TODO Auto-generated method stub
+		
 		Optional<User> user = userRepository.findByphone(phone);
 		if(user.isPresent()) {
 			return user.get();
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserResponse> getAllUser(Pageable pageable) {
-		// TODO Auto-generated method stub
+
 	
 		List<User> mUsers = userRepoPagination.findAll(pageable).toList();
 		List<UserResponse> getPages = new ArrayList<>(); 
@@ -60,7 +61,19 @@ public class UserServiceImpl implements UserService {
 		
 		return getPages;
 	}
-	
-	
 
+	@Override
+	public String updateUser(UserUpdate userUpdate) {
+		
+		try {
+			userRepository.updateUser(userUpdate.getName(), userUpdate.getDate_of_birth(), userUpdate.getTime_of_birth(), userUpdate.getPlace_of_birth(), userUpdate.getPayment_status(), userUpdate.getPayment_amt(), userUpdate.getPayment_date(),userUpdate.getStar_id(), userUpdate.getId());
+			return "Updated Successfully";
+		}
+		catch(Exception e)
+		{
+			return e.getMessage();
+		}
+		 	
+	}
+	
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javaguide.springboot.model.ReturnModel;
 import com.javaguide.springboot.model.User;
 import com.javaguide.springboot.model.UserResponse;
+import com.javaguide.springboot.model.UserUpdate;
 import com.javaguide.springboot.service.UserService;
 
 @RestController
@@ -57,6 +58,19 @@ public class UserController {
 		catch(Exception e)
 		{
 			return new ReturnModel("502","user not created",e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value="/admin/update-user", method = RequestMethod.POST)
+	ReturnModel updateUser(@RequestBody UserUpdate userUpdate) throws Exception{
+		try {
+			System.out.println(userUpdate.toString());
+		String msg = userService.updateUser(userUpdate);
+		return new ReturnModel("200", "ok", msg);
+		}
+		catch(Exception e)
+		{
+			return new ReturnModel("502","user not updated",e.getMessage());
 		}
 	}
 	
