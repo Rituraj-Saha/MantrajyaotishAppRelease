@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,17 +23,35 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+//@PropertySource(ignoreResourceNotFound = true, value = "classpath:application-${envTarget:dev}.properties")
 @RestController
 @RequestMapping("/download")
 public class FileDownloadController {
-	private static final String EXTERNAL_FILE_PATH = "D:/others/MantrajyaotishApp/resoursce/sample/";
+	 @Autowired
+	    private ConfigurableEnvironment  myEnv;
+	
+//	  @Value("${filePath}")
+//	    private static String expath;
+	
+//	private static final String EXTERNAL_FILE_PATH = "D:/others/MantrajyaotishApp/resoursce/sample/";
+	
+	 private String EXTERNAL_FILE_PATH = "";
+	 @EventListener(ApplicationReadyEvent.class)
+	    public void doSomethingAfterStartup() 
+	    throws Exception {
+	        
+		 	EXTERNAL_FILE_PATH= myEnv.getProperty("filePath");
+	    }
+	 	
+	 
+	
 	
 //	private static final String EXTERNAL_FILE_PATH = "E:/boni dev/resoursce/";
 	
 	@RequestMapping("/file/{fileName:.+}")
 	public void downloadPDFResource(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("fileName") String fileName) throws IOException {
-		
+		System.out.println("external path: "+EXTERNAL_FILE_PATH);
 		File file = new File(EXTERNAL_FILE_PATH + fileName);
 		if (file.exists()) {
 
